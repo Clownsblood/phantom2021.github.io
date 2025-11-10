@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聚合视频网站入口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        /* 头部样式 */
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+            outline: none;
+        }
+        .search-box button {
+            padding: 12px 20px;
+            border: none;
+            background-color: #333;
+            color: white;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .search-box button:hover {
+            background-color: #555;
+        }
+
+        /* 导航栏样式 */
+        .nav {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .nav a:hover, .nav a.active {
+            color: #ff6b6b;
+            background-color: #fef0f0;
+        }
+
+        /* 平台容器样式 */
+        .platform-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .category-title {
+            font-size: 1.5rem;
+            margin: 30px 0 15px;
+            color: #333;
+            border-left: 4px solid #ff6b6b;
+            padding-left: 10px;
+        }
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .platform-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .platform-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .platform-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+        /* 不同平台图标背景色 */
+        .icon-tencent { background-color: #00A4EF; }
+        .icon-aiqiyi { background-color: #1677FF; }
+        .icon-youku { background-color: #FF0000; }
+        .icon-mango { background-color: #FF5C87; }
+        .icon-migu { background-color: #E60012; }
+        .icon-netflix { background-color: #E50914; }
+        .icon-viki { background-color: #2D3748; }
+        .icon-renren { background-color: #00B42A; }
+        .icon-hanju { background-color: #32CD32; }
+
+        .platform-name {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* 底部样式 */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .platform-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            .platform-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <!-- 头部区域 -->
+    <div class="header">
+        <h1>聚合视频网站入口</h1>
+        <div class="search-box">
+            <input type="text" placeholder="搜索影视名称...">
+            <button><i class="fa fa-search"></i> 搜索</button>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav">
+        <ul>
+            <li><a href="#domestic" class="active">国内平台</a></li>
+            <li><a href="#overseas">海外平台</a></li>
+            <li><a href="#korea">韩剧专区</a></li>
+            <li><a href="#help">使用帮助</a></li>
+        </ul>
+    </div>
+
+    <!-- 平台容器 -->
+    <div class="platform-container">
+        <!-- 国内平台 -->
+        <div id="domestic">
+            <h2 class="category-title">国内主流视频平台</h2>
+            <div class="platform-grid">
+                <!-- 腾讯视频 -->
+                <a href="https://v.qq.com/" target="_blank" class="platform-card">
+                    <div class="platform-icon icon-tencent">
+                        <i class="fa fa-play-circle"></i>
+                    </div>
+                    <div class="platform-name">腾讯视频</div>
+                </a>
+                <!-- 爱奇艺 -->
+                <a href="https://www.iqiyi.com/" target="_blank" class="platform-card">
+                    <div class="platform-icon icon-aiqiyi">
+                        <i class="fa fa-film"></i>
+                    </div>
+                    <div class="platform-name">爱奇艺</div>
+                </a>
+                <!-- 优酷 -->
+                <a href="https://www.youku.com/" target="_blank" class="platform-card">
+                    <div class="platform-icon icon-youku">
+                        <i class="fa fa-youtube-play"></i>
+                    </div>
+                    <div class="platform-name">优酷</div>
+                </a>
+                <!-- 芒果TV -->
+                <a href="https://www.mgtv.com/" target="_blank" class="platform-card">
+                    <div class="platform-icon icon-mango">
+                        <i class="fa fa-television"></i>
+                    </div>
+                    <div class="platform-name">芒果TV</div>
+                </a>
+                <!-- 咪咕视频 -->
+                <a href="https://www.miguvideo.com/" target="_blank" class="platform-card">
+                    <div class="platform-icon icon-migu">
+                        <i class="fa fa-video-camera"></i>
+                    </div>
+                    <div class="platform-name">咪咕视频</div>
+                </a>
+                <!-- 搜狐视频 -->
+                <a href="https://tv.sohu.com/" target="_blank" class="platform-card">
+                    <div class="platform-icon" style="background-color: #0099FF;">
+                        <i class="fa fa-desktop"></i>
+                    </div>
+                    <div class="platform-name">搜狐视频</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 海外平台 -->
+        <div id="overseas">
+            <h2 class="category-title">海外影视平台</h2>
+            <div class="platform-grid">
+                <!-- Netflix -->
+                <a href="https://www.netflix.com/" target="_blank" class="platform-card">
+                    <div class="platform-icon icon-netflix">
+                        <i class="fa fa-globe"></i>
+                    </div>
+                    <div class="platform-name">Netflix</div>
+                </a>
+                <!-- Viki -->
+                <a href="https://www.viki.com/" target="_blank" class="platform-card">
+                    <div class="platform-icon icon-viki">
+                        <i class="fa fa-subscript"></i>
+                    </div>
+                    <div class="platform-name">Viki</div>
+                </a>
+                <!-- 人人视频 -->
+                <a href="https://www.rr.tv/" target="_blank" class="platform-card">
+                    <div class="platform-icon icon-renren">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div class="platform-name">人人视频</div>
+                </a>
+                <!-- Disney+ -->
+                <a href="https://www.disneyplus.com/" target="_blank" class="platform-card">
+                    <div class="platform-icon" style="background-color: #113CCF;">
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <div class="platform-name">Disney+</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 韩剧专区 -->
+        <div id="korea">
+            <h2 class="category-title">韩剧/韩影专区</h2>
+            <div class="platform-grid">
+                <!-- 韩剧TV -->
+                <a href="https://www.hanjutv.com/" target="_blank" class="platform-card">
+                    <div class="platform-icon icon-hanju">
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <div class="platform-name">韩剧TV</div>
+                </a>
+                <!-- 韩迷TV -->
+                <a href="https://www.hanmi.tv/" target="_blank" class="platform-card">
+                    <div class="platform-icon" style="background-color: #4169E1;">
+                        <i class="fa fa-smile-o"></i>
+                    </div>
+                    <div class="platform-name">韩迷TV</div>
+                </a>
+                <!-- 追啊韩剧 -->
+                <a href="https://www.zhuiahk.com/" target="_blank" class="platform-card">
+                    <div class="platform-icon" style="background-color: #FF69B4;">
+                        <i class="fa fa-music"></i>
+                    </div>
+                    <div class="platform-name">追啊韩剧</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 使用帮助 -->
+        <div id="help" style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+            <h2 class="category-title">使用帮助</h2>
+            <ul style="line-height: 2; padding-left: 20px; color: #555;">
+                <li>点击平台图标即可跳转至对应官网，建议在官网观看以保障内容正版性和设备安全</li>
+                <li>部分海外平台需配合合规网络工具使用，请注意遵守当地法律法规</li>
+                <li>若跳转链接失效，可在搜索框输入平台名称查询最新官网地址</li>
+                <li>观看影视内容时，请支持正版，抵制盗版资源</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer">
+        <p>本页面仅为平台入口聚合，不存储任何影视资源 | 版权归各视频平台所有</p>
+        <p>© 2024 聚合视频入口 | 请支持正版影视内容</p>
+    </div>
+
+    <!-- 简单交互脚本 -->
+    <script>
+        // 导航栏激活状态切换
+        const navLinks = document.querySelectorAll('.nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.forEach(item => item.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // 搜索功能（模拟）
+        const searchBtn = document.querySelector('.search-box button');
+        const searchInput = document.querySelector('.search-box input');
+        searchBtn.addEventListener('click', () => {
+            const keyword = searchInput.value.trim();
+            if (keyword) {
+                alert(`正在搜索 "${keyword}"，可前往各平台查看结果`);
+                // 实际项目中可替换为跳转到聚合搜索接口
+            } else {
+                alert('请输入搜索关键词');
+            }
+        });
+    </script>
+</body>
+</html>

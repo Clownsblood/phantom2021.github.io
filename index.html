@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>phantom2021 | 快速访问</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298, #5f94d7);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #7effb2, #70b0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 650px;
+            line-height: 1.6;
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .category-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 25px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        .icons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 35px;
+            width: 100%;
+            max-width: 900px;
+        }
+        
+        .icon-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 18px;
+            padding: 25px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .icon-box:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            font-size: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(37, 117, 252, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .icon-box:hover .icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 12px 25px rgba(37, 117, 252, 0.4);
+        }
+        
+        .icon-label {
+            font-size: 1.1rem;
+            text-align: center;
+            color: white;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .icons-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 20px;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+            
+            .categories {
+                gap: 15px;
+            }
+            
+            .category-btn {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .icons-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 15px;
+            }
+            
+            .icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .icon-label {
+                font-size: 1rem;
+            }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <h1>phantom2021</h1>
+            <p class="subtitle">快捷导航</p>
+        </header>
+        
+        <div class="categories">
+            <button class="category-btn active">
+                <i class="fas fa-globe"></i> 常用网站
+            </button>
+            <!-- <button class="category-btn">
+                <i class="fas fa-gamepad"></i> 游戏娱乐
+            </button>
+            <button class="category-btn">
+                <i class="fas fa-tools"></i> 实用工具
+            </button>
+            <button class="category-btn">
+                <i class="fas fa-shopping-cart"></i> 购物平台
+            </button> -->
+        </div>
+        
+        
+        <div class="icons-grid">
+            <!-- 网站1 -->
+            <a href="/zhizhu/index.html" target="_blank" class="icon-box">
+                <div class="icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="icon-label">蜘蛛</div>
+            </a>
+            <!-- 网站2 -->
+            <a href="https://www.google.com" target="_blank" class="icon-box">
+                <div class="icon">
+                    <i class="fab fa-google"></i>
+                </div>
+                <div class="icon-label">Google搜索</div>
+            </a>
+            
+            <!-- 网站3 -->
+            <a href="https://github.com" target="_blank" class="icon-box">
+                <div class="icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <div class="icon-label">GitHub</div>
+            </a>
+            
+            <!-- 网站4 -->
+            <a href="https://youtube.com" target="_blank" class="icon-box">
+                <div class="icon">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <div class="icon-label">YouTube</div>
+            </a>
+            
+            <!-- 网站5 -->
+            <a href="https://twitter.com" target="_blank" class="icon-box">
+                <div class="icon">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <div class="icon-label">Twitter</div>
+            </a>
+            
+            <!-- 网站6 -->
+            <a href="https://chat.deepseek.com/" target="_blank" class="icon-box">
+                <div class="icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="icon-label">AI工具</div>
+            </a>
+            
+            
+            <!-- 网站7 -->
+            <a href="https://www.baidu.com" target="_blank" class="icon-box">
+                <div class="icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="icon-label">百度搜索</div>
+            </a>
+        </div>
+        
+    </div>
+    
+    
+    <script>
+        // 显示通知
+        document.querySelectorAll('.icon-box').forEach(box => {
+            box.addEventListener('click', function(e) {
+                e.preventDefault();
+                const notification = document.getElementById('notification');
+                const url = this.href;
+                
+                notification.textContent = `准备访问: ${url}`;
+                notification.style.display = 'block';
+                
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                    window.open(url, '_blank');
+                }, 2000);
+            });
+        });
+        
+        // 类别切换
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelector('.category-btn.active').classList.remove('active');
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
